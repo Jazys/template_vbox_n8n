@@ -1,0 +1,60 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+
+      "guest_os_type": "ubuntu-64",
+      "disk_size": "20000",
+			"cpus": "4",
+			"memory": "4096",
+      "name": "ubuntu-20.04-legacy-servertest",
+      "iso_urls": [
+        "http://cdimage.ubuntu.com/ubuntu-legacy-server/releases/20.04/release/ubuntu-20.04.1-legacy-server-amd64.iso"
+      ],
+      "iso_checksum": "f11bda2f2caed8f420802b59f382c25160b114ccc665dbac9c5046e7fceaced2",
+	  "keep_registered": "true",
+      "http_directory": "http",
+      "output_directory": "output/n8nVM",
+
+      "boot_wait": "5s",
+      "boot_command": [
+        "<esc><wait>",
+        "<esc><wait>",
+        "<enter><wait>",
+        "/install/vmlinuz<wait>",
+        " initrd=/install/initrd.gz",
+        " auto-install/enable=true",
+        " debconf/priority=critical",
+        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<wait>",
+        " -- <wait>",
+        "<enter><wait>"
+      ],
+      "shutdown_command": "sudo shutdown -P now",
+
+      "ssh_username": "ubuntu",
+      "ssh_password": "ubuntu",
+      "ssh_pty": true,
+      "ssh_timeout": "30m"
+    }
+  ],
+
+  "provisioners": [
+	{
+		"type": "file",
+		"source": "{{template_dir}}/scripts/",
+		"destination": "/home/ubuntu/",
+		"pause_before": "2s"
+	},
+    {
+      "type": "shell",
+      "inline": ["sudo apt install dos2unix",
+	  "sudo chmod +x /home/ubuntu/*",
+	  "sudo dos2unix /home/ubuntu/*",
+	  "cd /home/ubuntu && ./installDocker.sh",
+	  "cd /home/ubuntu && ./installn8n.sh",	  
+	  "exit 0",
+	  "sudo shutdown -P"	  
+	  ]
+    }
+  ]
+}
