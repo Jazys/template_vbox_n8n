@@ -6,15 +6,15 @@
 mkdir -p /home/ubuntu/n8n
 touch /home/ubuntu/n8n/.env
 cat <<EOT > /home/ubuntu/n8n/.env
-POSTGRES_USER=changeUser
-POSTGRES_PASSWORD=changePassword
+POSTGRES_USER=test
+POSTGRES_PASSWORD=test
 POSTGRES_DB=n8n
 
-POSTGRES_NON_ROOT_USER=changeUser
-POSTGRES_NON_ROOT_PASSWORD=changePassword
+POSTGRES_NON_ROOT_USER=test
+POSTGRES_NON_ROOT_PASSWORD=test
 
-N8N_BASIC_AUTH_USER=changeUser
-N8N_BASIC_AUTH_PASSWORD=changePassword
+N8N_BASIC_AUTH_USER=test
+N8N_BASIC_AUTH_PASSWORD=test
 EOT
 
 touch /home/ubuntu/n8n/docker-compose.yml
