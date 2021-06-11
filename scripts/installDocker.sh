@@ -6,6 +6,10 @@ cat <<EOT >> /etc/issue
 Self Hosted Low Code Tool Box (SHLCTB)
 IP \4
 EOT
+cat <<EOT >> /etc/profile.d/docker-external-ip.sh
+export EXTERNAL_IP=$(hostname -I | awk '{print $1}')
+EOT
+chmod +x /etc/profile.d/docker-external-ip.sh
 apt update
 apt install apt-transport-https ca-certificates curl software-properties-common -y
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -

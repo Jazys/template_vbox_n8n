@@ -15,6 +15,8 @@ POSTGRES_NON_ROOT_PASSWORD=test
 
 N8N_BASIC_AUTH_USER=test
 N8N_BASIC_AUTH_PASSWORD=test
+
+N8N_WEBHOOK_TUNNEL_URL=http://192.168.1.22/
 EOT
 
 touch /home/ubuntu/n8n/docker-compose.yml
@@ -34,6 +36,7 @@ services:
       - POSTGRES_NON_ROOT_PASSWORD
     volumes:
       - ./init-data.sh:/docker-entrypoint-initdb.d/init-data.sh
+	  - ./postgres-data:/var/lib/postgresql/data
 
   n8n:
     image: n8nio/n8n
@@ -48,12 +51,13 @@ services:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER
       - N8N_BASIC_AUTH_PASSWORD
+	  - WEBHOOK_TUNNEL_URL=\${N8N_WEBHOOK_TUNNEL_URL}
     ports:
       - 5678:5678
     links:
       - postgres
     volumes:
-      - ~/.n8n:/home/node/.n8n
+      - ./.n8n:/home/node/.n8n
     # Wait 5 seconds to start n8n to make sure that PostgreSQL is ready
     # when n8n tries to connect to it
     command: /bin/sh -c "sleep 5; n8n start"
