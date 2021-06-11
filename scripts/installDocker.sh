@@ -1,6 +1,11 @@
 #!/bin/bash
 
 [ `whoami` = root ] || exec sudo su -c $0
+
+cat <<EOT >> /etc/issue
+Self Hosted Low Code Tool Box (SHLCTB)
+IP \4
+EOT
 apt update
 apt install apt-transport-https ca-certificates curl software-properties-common -y
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -

@@ -48,6 +48,7 @@
     {
       "type": "shell",
       "inline": ["sudo apt install dos2unix",
+	  "sudo curl https://raw.githubusercontent.com/ajenti/ajenti/master/scripts/install.sh | sudo bash -s -",
 	  "sudo chmod +x /home/ubuntu/*",
 	  "sudo dos2unix /home/ubuntu/*",
 	  "cd /home/ubuntu && ./installDocker.sh",
