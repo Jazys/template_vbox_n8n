@@ -36,7 +36,7 @@ services:
       - POSTGRES_NON_ROOT_PASSWORD
     volumes:
       - ./init-data.sh:/docker-entrypoint-initdb.d/init-data.sh
-	  - ./postgres-data:/var/lib/postgresql/data
+      - ./postgres-data:/var/lib/postgresql/data
 
   n8n:
     image: n8nio/n8n
@@ -51,7 +51,7 @@ services:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER
       - N8N_BASIC_AUTH_PASSWORD
-	  - WEBHOOK_TUNNEL_URL=\${N8N_WEBHOOK_TUNNEL_URL}
+      - WEBHOOK_TUNNEL_URL=\${N8N_WEBHOOK_TUNNEL_URL}
     ports:
       - 5678:5678
     links:

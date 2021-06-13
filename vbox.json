@@ -5,8 +5,8 @@
 
       "guest_os_type": "ubuntu-64",
       "disk_size": "20000",
-			"cpus": "4",
-			"memory": "4096",
+      "cpus": "4",
+      "memory": "4096",
       "name": "ubuntu-20.04-legacy-servertest",
       "iso_urls": [
         "http://cdimage.ubuntu.com/ubuntu-legacy-server/releases/20.04/release/ubuntu-20.04.1-legacy-server-amd64.iso"
@@ -14,7 +14,7 @@
       "iso_checksum": "f11bda2f2caed8f420802b59f382c25160b114ccc665dbac9c5046e7fceaced2",
 	  "keep_registered": "true",
       "http_directory": "http",
-      "output_directory": "output/n8nVM",
+      "output_directory": "output/n8nVBox",
 
       "boot_wait": "5s",
       "boot_command": [
@@ -47,12 +47,17 @@
 	},
     {
       "type": "shell",
-      "inline": ["sudo apt install dos2unix",
-	  "sudo curl https://raw.githubusercontent.com/ajenti/ajenti/master/scripts/install.sh | sudo bash -s -",
-	  "sudo chmod +x /home/ubuntu/*",
+      "inline": ["sudo apt install dos2unix -y",
+	  "sudo apt install curl -y",
+	  "curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -",
+	  "sudo apt install pkg-config -y",
+	  "sudo apt-get install -y nodejs -y",
+	  "sudo apt-get install build-essential -y",
+	  "curl -O https://raw.githubusercontent.com/ajenti/ajenti/master/scripts/install.sh && sudo bash ./install.sh",	  
 	  "sudo dos2unix /home/ubuntu/*",
-	  "cd /home/ubuntu && ./installDocker.sh",
-	  "cd /home/ubuntu && ./installn8n.sh",	  
+	  "cd /home/ubuntu && sudo bash ./installDocker.sh",
+	  "cd /home/ubuntu && sudo bash ./installn8n.sh",
+	  "sudo chmod 777 /home/ubuntu/n8n/* -R",	  
 	  "exit 0",
 	  "sudo shutdown -P"	  
 	  ]
