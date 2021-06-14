@@ -35,8 +35,8 @@ services:
       - POSTGRES_NON_ROOT_USER
       - POSTGRES_NON_ROOT_PASSWORD
     volumes:
-      - ./init-data.sh:/docker-entrypoint-initdb.d/init-data.sh
       - ./postgres-data:/var/lib/postgresql/data
+      - ./init-data.sh:/docker-entrypoint-initdb.d/init-data.sh
 
   n8n:
     image: n8nio/n8n
@@ -64,6 +64,7 @@ services:
 EOT
 
 touch /home/ubuntu/n8n/init-data.sh
+mkdir /home/ubuntu/n8n/postgres-data
 chmod +x /home/ubuntu/n8n/init-data.sh
 cat <<EOT > /home/ubuntu/n8n/init-data.sh
 #!/bin/bash
@@ -81,4 +82,5 @@ fi
 EOT
 
 cd /home/ubuntu/n8n/ && docker-compose up -d 
+
 exit 0
