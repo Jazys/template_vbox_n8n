@@ -13,3 +13,10 @@ EOT
 #apt-get install -y nodejs 
 #apt-get install build-essential -y
 
+#Par exemple pour setter une ip dans un docker-compose
+#touch /etc/profile.d/docker-external-ip.sh
+#cat <<EOT >> /etc/profile.d/docker-external-ip.sh
+#export EXTERNAL_IP=$(hostname -I | awk '{print $1}')
+#EOT
+
+

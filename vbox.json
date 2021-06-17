@@ -34,7 +34,7 @@
       "ssh_username": "ubuntu",
       "ssh_password": "ubuntu",
       "ssh_pty": true,
-      "ssh_timeout": "30m"
+      "ssh_timeout": "40m"
     }
   ],
 
@@ -47,17 +47,15 @@
 	},
     {
       "type": "shell",
-      "inline": ["sudo apt install dos2unix -y",
-	  "sudo apt install curl -y",
-	  "curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -",
-	  "sudo apt install pkg-config -y",
-	  "sudo apt-get install -y nodejs -y",
-	  "sudo apt-get install build-essential -y",
-	  "curl -O https://raw.githubusercontent.com/ajenti/ajenti/master/scripts/install.sh && sudo bash ./install.sh",	  
+      "inline": [
+	  "sudo apt install dos2unix -y",
 	  "sudo dos2unix /home/ubuntu/*",
+	  "cd /home/ubuntu && sudo bash ./addOn.sh",
+	  "sudo apt install curl -y",	
+	  "curl -O https://raw.githubusercontent.com/ajenti/ajenti/master/scripts/install.sh && sudo bash ./install.sh", 
 	  "cd /home/ubuntu && sudo bash ./installDocker.sh",
 	  "cd /home/ubuntu && sudo bash ./installn8n.sh",
-	  "sudo chmod 777 /home/ubuntu/n8n/* -R",	  
+	  "sudo chown ubuntu:root /home/ubuntu/n8n/.env /home/ubuntu/n8n/docker-compose.yml",	  
 	  "exit 0",
 	  "sudo shutdown -P"	  
 	  ]
